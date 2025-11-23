@@ -129,7 +129,7 @@ section {
 
 .category-item {
   position: relative; /* necesario para el overlay y el texto */
-  flex: 0 0 55%; /* ancho del item */
+  flex: 0 0 80%; /* ancho del item */
   scroll-snap-align: start;
   border-radius: var(--radius);
   overflow: hidden; /* para que el overlay y la imagen no sobresalgan */
@@ -165,6 +165,7 @@ section {
 /* Ajustes para pantallas grandes */
 /* ======================== */
 @media (min-width: 768px) {
+
   .category-row {
     overflow-x: visible;       /* ya no hace scroll horizontal */
     justify-content: center;   /* centra los items */
@@ -172,14 +173,24 @@ section {
     gap: 24px;                 /* más espacio entre items */
   }
 
-  .category-item {
-    flex: 0 0 200px;           /* ancho fijo para pantallas grandes */
+  .product-detail {
+    width: 600px; /* si quieres que el bloque sea más compacto en desktop */
+    margin: 30px;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  /* Si prefieres otra proporción en desktop, cámbiala aquí */
+  .detail-images .detail-img {
+    aspect-ratio: 2.5/4; /* o manten 3/4 si prefieres */
+    /* IMPORTANT: no hay max-width que limite el ancho — cada slide seguirá ocupando 100% */
   }
 }
 
 
 /* 06 · PRODUCTO DESTACADO — MOBILE FIRST */
 
+/* Estilos base (móviles y tablets pequeños) */
 .categoria-section {
   margin: 0;
   padding: 0; 
@@ -189,17 +200,15 @@ section {
   text-align: center;
 }
 
-/* Tarjeta de producto */
 .product-detail {
   text-align: center;
-  margin: 30px; /* espaciado uniforme */
+  margin: 20px; /* un poco menos que antes */
 }
 
-/* Imagen del producto */
 .detail-img {
   width: 100%;
   aspect-ratio: 3/4;
-  margin: 0 auto 16px; /* espaciado consistente */
+  margin: 0 auto 12px;
   border-radius: 14px;
   border: 1px solid rgba(0,0,0,0.05);
   background: linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.02));
@@ -211,6 +220,7 @@ section {
   height: 100%;
   object-fit: cover;
 }
+
 
 /* Precio */
 .price {
@@ -248,6 +258,58 @@ section {
   color: var(--dorado);
   font-weight: 600;
 }
+
+.detail-img {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+
+.detail-img::-webkit-scrollbar { display: none; }
+
+.detail-img-track {
+  display: flex;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.detail-img-track img {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  display: block;
+  width: 100%;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 8px 0 12px 0;
+  pointer-events: none;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.18);
+  transition: transform .12s ease, background .12s ease;
+}
+
+.carousel-dot.active {
+  background: #57a8ff !important;
+  transform: scale(1.15);
+}
+
+
 
 
 /* 07 · FOOTER */

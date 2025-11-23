@@ -40,7 +40,10 @@ export const productosDestacados = [
     color: "Beige",
     tallas: ["S", "M", "L"],
     material: "Lino",
-    img: "assets/img/productos/vestido-lino.jpg"
+     img: [
+        "Assets/IMG/Products/Vestidos/VestidoBeige (2).jpg",
+        "Assets/IMG/Products/Vestidos/VestidoBeige (1).jpg",
+    ]
   },
   {
     categoria: "vestidos",
@@ -50,7 +53,12 @@ export const productosDestacados = [
     color: "Rosa",
     tallas: ["S", "M", "L"],
     material: "Seda",
-    img: "assets/img/productos/vestido-seda-floral.jpg"
+    img: [
+        "Assets/IMG/Products/Vestidos/VestidoNegro (4).jpg",
+        "Assets/IMG/Products/Vestidos/VestidoNegro (1).jpg",
+        "Assets/IMG/Products/Vestidos/VestidoNegro (3).jpg",
+        "Assets/IMG/Products/Vestidos/VestidoNegro (2).jpg"
+    ]
   },
 
   // Blusas
@@ -62,7 +70,11 @@ export const productosDestacados = [
     color: "Marfil",
     tallas: ["S", "M", "L"],
     material: "Seda natural",
-    img: "assets/img/productos/blusa-seda.jpg"
+    img: [
+        "Assets/IMG/Products/Blusas/BlusaAzul (2).jpg",
+        "Assets/IMG/Products/Blusas/BlusaAzul (1).jpg",
+        "Assets/IMG/Products/Blusas/BlusaAzul (3).jpg"
+    ] 
   },
   {
     categoria: "blusas",
@@ -72,7 +84,11 @@ export const productosDestacados = [
     color: "Celeste",
     tallas: ["S", "M", "L"],
     material: "Lino",
-    img: "assets/img/productos/blusa-lino.jpg"
+    img: [
+        "Assets/IMG/Products/Blusas/BlusaNegra (1).jpg",
+        "Assets/IMG/Products/Blusas/BlusaNegra (2).jpg",
+        "Assets/IMG/Products/Blusas/BlusaNegra (3).jpg"
+    ] 
   },
 
   // Conjuntios
@@ -84,7 +100,11 @@ export const productosDestacados = [
     color: "Topo",
     tallas: ["M", "L"],
     material: "Lino + Algodón",
-    img: "assets/img/productos/chaqueta-sastre.jpg"
+    img: [
+        "Assets/IMG/Products/Conjuntos/ConjuntoClaro (1).jpg",
+        "Assets/IMG/Products/Conjuntos/ConjuntoClaro (2).jpg",
+        "Assets/IMG/Products/Conjuntos/ConjuntoClaro (3).jpg"
+     ] 
   },
   {
     categoria: "conjuntos",
@@ -94,7 +114,11 @@ export const productosDestacados = [
     color: "Azul",
     tallas: ["S", "M", "L", "XL"],
     material: "Algodón",
-    img: "assets/img/productos/chaqueta-denim.jpg"
+    img: [
+        "Assets/IMG/Products/Conjuntos/ConjuntoOscuro (2).jpg",
+        "Assets/IMG/Products/Conjuntos/ConjuntoOscuro (1).jpg",
+        "Assets/IMG/Products/Conjuntos/ConjuntoOscuro (3).jpg"
+     ] 
   },
 
   // Pantalones
@@ -106,7 +130,12 @@ export const productosDestacados = [
     color: "Negro",
     tallas: ["S", "M", "L", "XL"],
     material: "Lino liviano",
-    img: "assets/img/productos/palazzo.jpg"
+    img: [
+        "Assets/IMG/Products/Pantalones/PantalonBlanco (1).jpg",
+        "Assets/IMG/Products/Pantalones/PantalonBlanco (2).jpg",
+        "Assets/IMG/Products/Pantalones/PantalonBlanco (3).jpg"
+        
+    ]
   },
   {
     categoria: "pantalones",
@@ -116,7 +145,11 @@ export const productosDestacados = [
     color: "Beige",
     tallas: ["S", "M", "L", "XL"],
     material: "Algodón stretch",
-    img: "assets/img/productos/pantalon-chino.jpg"
+    img: 
+    [
+        "Assets/IMG/Products/Pantalones/PantalonNegro (3).jpg",
+        "Assets/IMG/Products/Pantalones/PantalonNegro (1).jpg",
+        "Assets/IMG/Products/Pantalones/PantalonNegro (2).jpg"
+    ]
   }
 ];
-
