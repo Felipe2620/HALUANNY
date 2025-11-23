@@ -73,6 +73,7 @@ function generarProductoHTML(prod, index) {
 
 
 
+
 // ==============================
 // 4. Función para generar una sección por categoría
 // ==============================
