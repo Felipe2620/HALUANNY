@@ -93,7 +93,7 @@ section {
 
 .hero-video {
   width: 100%;
-  height: 65vh;         /* 45% de la altura de la pantalla */
+  height: 70vh;         /* 45% de la altura de la pantalla */
   overflow: hidden;
 }
 
@@ -129,7 +129,7 @@ section {
 
 .category-item {
   position: relative; /* necesario para el overlay y el texto */
-  flex: 0 0 80%; /* ancho del item */
+  flex: 0 0 50%; /* ancho del item */
   scroll-snap-align: start;
   border-radius: var(--radius);
   overflow: hidden; /* para que el overlay y la imagen no sobresalgan */
@@ -160,49 +160,19 @@ section {
   font-size: 1rem;
 }
 
-
-/* ======================== */
-/* Ajustes para pantallas grandes */
-/* ======================== */
-@media (min-width: 768px) {
-
-  .category-row {
-    overflow-x: visible;       /* ya no hace scroll horizontal */
-    justify-content: center;   /* centra los items */
-    flex-wrap: wrap;           /* permite que los items se alineen en varias filas si hay muchos */
-    gap: 24px;                 /* más espacio entre items */
-  }
-
-  .product-detail {
-    width: 600px; /* si quieres que el bloque sea más compacto en desktop */
-    margin: 30px;
-    display: inline-block;
-    vertical-align: top;
-  }
-
-  /* Si prefieres otra proporción en desktop, cámbiala aquí */
-  .detail-images .detail-img {
-    aspect-ratio: 2.5/4; /* o manten 3/4 si prefieres */
-    /* IMPORTANT: no hay max-width que limite el ancho — cada slide seguirá ocupando 100% */
-  }
-}
-
-
 /* 06 · PRODUCTO DESTACADO — MOBILE FIRST */
 
 /* Estilos base (móviles y tablets pequeños) */
+
 .categoria-section {
   margin: 0;
   padding: 0; 
 }
 
-.featured-products {
-  text-align: center;
-}
-
 .product-detail {
   text-align: center;
   margin: 20px; /* un poco menos que antes */
+  justify-content: center;
 }
 
 .detail-img {
@@ -250,14 +220,80 @@ section {
 
 /* CTA */
 .cta {
-  display: inline-block;
-  margin-top: 12px; /* mismo patrón de espaciado */
+  display: flex;              /* flex para centrar contenido */
+  justify-content: center;    /* centra el texto horizontalmente */
+  align-items: center;        /* centra el texto verticalmente */
+  margin: 12px auto 0 auto;  /* centra el botón horizontalmente y separa de tallas */
   padding: 10px 18px;
   border-radius: 8px;
   border: 1px solid var(--dorado);
   color: var(--dorado);
   font-weight: 600;
+  cursor: pointer;
 }
+
+
+.tallas-container{
+  background: var(--white);
+}
+
+
+.talla-item {
+  display: inline-flex;
+  align-items: center;      /* centra verticalmente */
+  gap: 8px;                 /* espacio entre "Talla:" y los botones */
+  margin-top: 6px;
+  background: var(--white);
+  justify-content: center;
+  padding: 8px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 999px;
+  color: var(--muted);
+}
+
+
+/* Contenedor de botones */
+.tallas-container {
+  display: flex;
+  gap: 6px;                 /* espacio entre botones */
+  overflow-x: auto;         /* scroll horizontal si hay muchas tallas */
+  padding: 2px 4px;
+  border-radius: 12px;
+  -webkit-overflow-scrolling: touch; /* scroll suave en iOS */
+  align-items: center;       /* centra los botones verticalmente */
+}
+
+.tallas-container::-webkit-scrollbar {
+  display: none; /* ocultar scrollbar */
+}
+
+/* Botones de talla */
+.talla-btn {
+  flex: 0 0 auto;           /* no se estira */
+  padding: 4px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.talla-btn.selected {
+  background-color: #3b82f6;
+  color: #fff;
+  border-color: #2563eb;
+}
+
+.talla-btn:hover {
+  background-color: #e0e7ff;
+  border-color: #3b82f6;
+}
+
+
+
 
 .detail-img {
   width: 100%;
@@ -310,8 +346,6 @@ section {
 }
 
 
-
-
 /* 07 · FOOTER */
 footer {
   text-align: center;
@@ -324,14 +358,26 @@ footer {
 
 /* 08 · RESPONSIVE MÍNIMO (solo para tablets) */
 @media (min-width: 768px) {
-  h1 { font-size: 2.4rem; }
-  h2 { font-size: 1.6rem; }
 
   .category-item {
     flex: 0 0 22%;
   }
 
-  .detail-img {
-    width: 70%;
+  .category-row {
+    overflow-x: visible;       /* ya no hace scroll horizontal */
+    justify-content: center;   /* centra los items */
+    flex-wrap: wrap;           /* permite que los items se alineen en varias filas si hay muchos */
+    gap: 24px;   
   }
+
+  .title{
+      font-size: 4rem;
+    }
+
+    .hero-video {
+  width: 100%;
+  height: 90vh;         /* 45% de la altura de la pantalla */
+  overflow: hidden;
+}
+  
 }

@@ -63,13 +63,37 @@ function generarProductoHTML(prod, index) {
       <p class="price">$${prod.precio.toLocaleString()}</p>
       <ul class="specs">
         <li><strong>Color:</strong> ${prod.color}</li>
-        <li><strong>Tallas:</strong> ${prod.tallas.join(", ")}</li>
         <li><strong>Material:</strong> ${prod.material}</li>
       </ul>
-      <button class="cta">Haz tu Pedido</button>
+      <li>
+      <strong>Talla:</strong>
+      <div class="tallas-container">
+      ${prod.tallas.map(t => `<button type="button" class="talla-btn" data-talla="${t}">${t}</button>`).join('')}
+     </div>
+     </li>
+
+      <button class="cta" data-index="${index}">Haz tu Pedido</button>
     </article>
   `;
 }
+
+// ------------------ Evento WhatsApp ------------------
+document.addEventListener("click", function(e) {
+  if (e.target.matches(".cta")) {
+    const index = e.target.dataset.index;
+    const producto = productos[index]; // tu array de productos
+    const tarjeta = e.target.closest(".producto-card");
+    const tallaSelect = tarjeta.querySelector(".talla-select");
+    const talla = tallaSelect ? tallaSelect.value : "No seleccionada";
+
+    const mensaje = `Hola, quiero pedir el producto: ${producto.nombre}, Talla: ${talla}.`;
+    const numero = "573001234567"; // cambia por tu número
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+
+    window.open(url, "_blank");
+  }
+});
+
 
 
 
