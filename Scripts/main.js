@@ -65,10 +65,10 @@ function generarProductoHTML(prod, index) {
         <li><strong>Color:</strong> ${prod.color}</li>
         <li><strong>Material:</strong> ${prod.material}</li>
       </ul>
-      <li>
+      <li class="talla-item">
       <strong>Talla:</strong>
       <div class="tallas-container">
-      ${prod.tallas.map(t => `<button type="button" class="talla-btn" data-talla="${t}">${t}</button>`).join('')}
+     ${prod.tallas.map(t => `<button type="button" class="talla-btn" data-talla="${t}">${t}</button>`).join('')}
      </div>
      </li>
 
