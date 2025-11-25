@@ -37,120 +37,97 @@ body{
 
 h1,h2,h3 { font-family: var(--font-title); font-weight: 600; margin-bottom: 8px; }
 h1{ font-size: 3rem; }
-h2{ font-size: 1.6rem; }
+h2{ font-size: 2.5rem; }
 h3{ font-size: 1rem; }
 
 
 /* 03 · Sections spacing */
-section { padding: 32px 16px; }
+section { padding: 20px 16px; }
 
 /* 04 · Hero (keeps your existing look but clean) */
 :root{
   --video-height: 70vh;
 }
+.logo{
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+}
 .hero {
   text-align: center;
   margin: 24px 0px 12px;
-  position: relative;
-  
 }
 
-/* Texto arriba y abajo del video */
+.hero-header-bg{
+  background-color:rgba(165, 42, 42, 0.733);
+  width: 100%;
+}
+
+/* Contenedor de textos */
 .hero-content {
-  position: relative;
-  z-index: 4;
   display: flex;
-  flex-direction: column;   /* ← ESTO APOYA EL SALTO DE LÍNEA */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0px;
+  gap: 0;
   margin-bottom: 12px;
 }
 
+.hero img {width: 180px;;}
+
+/* Subtitles */
 .subtitle {
   display: block;
 }
 
-/* Subtitles compactos */
 .subtitle.first {
   font-weight: 600;
   opacity: 0.40;
   font-size: 1.3rem;
-  margin: 0;
+  margin-top: 20px;
 }
 
 .subtitle.last {
   font-weight: 800;
-  font-size: 3.2rem !important;
+  font-size: 3.4rem!important;
   margin: 0;
   letter-spacing: 3px;
 }
-
 
 .hero-description {
   opacity: .85;
   letter-spacing: 2px;
 }
 
-/* Contenedor del video */
+/* Video */
 .hero-video {
   width: 100%;
   height: var(--video-height);
   max-height: 600px;
   overflow: hidden;
-  position: relative;
   margin: 12px 0;
 }
 
-/* Video */
 .hero-video video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(.7);
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-
-/* Overlay */
-.video-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.25);
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* Logo centrado sobre el video */
-.hero-logo {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  filter: brightness(0) invert(1);
-  z-index: 3;
-  width: clamp(150px, 25vw, 380px); /* Más grande */
-  height: auto;
-  display: block;
-  pointer-events: none;
+  filter: brightness(0.9) contrast(1.2) saturate(1.1) blur(0.5px);
+  transition: filter 0.5s ease; /* opcional: animación suave */
 }
 
 /* Responsive */
 @media (max-width: 720px) {
-  :root { --video-height: 40vh; }
+  :root { --video-height: 70vh; }
   .subtitle.last { font-size: 1.6rem; }
-  .hero-logo { width: clamp(150px, 25vw, 380px); }
 }
-
 
 /* 05 · Categories row (mobile) */
 .categories { max-width: 1200px; margin: 0 auto 6px; }
-.title{text-align: center;}
+.title{text-align: center; margin:0px;}
 .category-row {
   display: flex;
-  gap: 12px;
+  gap: 7px;
   overflow-x: auto;
   padding-bottom: 10px;
   scroll-snap-type: x mandatory;
@@ -160,7 +137,6 @@ section { padding: 32px 16px; }
 .category-item{
   flex: 0 0 48%;
   scroll-snap-align: start;
-  border-radius: 10px;
   overflow: hidden;
   position: relative;
   min-height: 120px;
@@ -176,10 +152,10 @@ section { padding: 32px 16px; }
 .category-overlay span{ color: var(--white); font-weight: 600; }
 
 /* 06 · Featured products container */
-.featured-products { max-width: 1200px; margin: 0 auto; text-align: center; }
+.featured-products { max-width: 1200px; margin: 0 auto; text-align: center;font-weight: 900;}
 
 /* Seccion (cada categoria) */
-.categoria-section { margin-bottom: 24px; }
+.categoria-section { margin-bottom: 18px; }
 
 /* Grid for product cards (mobile single-column but centers cards) */
 .categoria-section .productos-grid {
@@ -206,7 +182,7 @@ section { padding: 32px 16px; }
 /* 08 · Carrusel container (detail-img-container) */
 .detail-img-container {
   width: 85%;                  /* 85% width as requested */
-  max-width: 360px;            /* cap */
+  max-width: 370px;            /* cap */
   margin: 0 auto var(--space-m);
   position: relative;
   overflow: hidden;
