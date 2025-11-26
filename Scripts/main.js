@@ -8,37 +8,51 @@ import { enviarWhatsApp } from "../Data/Services/WhatsAppService.js";
 import { actualizarColorProducto } from "../Data/Components/ColorController.js";
 import { renderSecciones } from "../Data/Render/Secciones.js";
 
-// ======================
-// 1. RENDER CATEGORÍAS
-// ======================
+// ============================================
+// 1. ASIGNAR ÍNDICE GLOBAL A CADA PRODUCTO
+// ============================================
+// Esto permite identificar SIEMPRE el producto correcto,
+// sin importar categoría, filtros, grids o posición.
+productosDestacados.forEach((p, i) => {
+  p.globalIndex = i;
+});
+
+
+// ============================================
+// 2. RENDER CATEGORÍAS
+// ============================================
 document.querySelector("#categoria-list").innerHTML =
   generarCategorias(categorias);
 
-// ======================
-// 2. AGRUPAR PRODUCTOS POR CATEGORÍA
-// ======================
+
+// ============================================
+// 3. AGRUPAR PRODUCTOS POR CATEGORÍA
+// ============================================
 const productosPorCategoria = productosDestacados.reduce((acc, prod) => {
   (acc[prod.categoria] ||= []).push(prod);
   return acc;
 }, {});
 
-// ======================
-// 3. RENDER DE SECCIONES
-// ======================
+
+// ============================================
+// 4. RENDER DE SECCIONES (CON ÍNDICE GLOBAL)
+// ============================================
 renderSecciones(
   categorias,
   productosPorCategoria,
   document.querySelector("#contenedor-secciones")
 );
 
-// ======================
-// 4. EVENTOS GLOBALES
-// ======================
+
+// ============================================
+// 5. EVENTOS GLOBALES → COLORES, TALLAS, WHATSAPP
+// ============================================
 document.addEventListener("click", (e) => {
 
-  // ========== Selección de Talla ==========
+  // ========== SELECCIONAR TALLA ==========
   if (e.target.matches(".talla-btn")) {
     const contenedor = e.target.closest(".tallas-container");
+
     contenedor.querySelectorAll(".talla-btn")
       .forEach(btn => btn.classList.remove("selected"));
 
@@ -46,43 +60,50 @@ document.addEventListener("click", (e) => {
     return;
   }
 
-  // ========== Selección de Color ==========
+  // ========== SELECCIONAR COLOR ==========
   if (e.target.matches(".color-btn")) {
+
     const tarjeta = e.target.closest(".producto-card");
-    const index = tarjeta.dataset.index;
+    const indexGlobal = tarjeta.dataset.index;       // <--- AHORA CORRECTO
     const nuevoColor = e.target.dataset.color;
 
-    // Estilos visuales
-    const contenedorColores = e.target.closest(".colores-container");
+    // Estilos
+    const contenedorColores = tarjeta.querySelector(".colores-container");
     contenedorColores.querySelectorAll(".color-btn")
       .forEach(btn => btn.classList.remove("selected"));
+
     e.target.classList.add("selected");
 
-    // Cambio del carrusel
-    actualizarColorProducto(index, nuevoColor);
+    // Actualizar carrusel
+    actualizarColorProducto(indexGlobal, nuevoColor);
     return;
   }
 
   // ========== BOTÓN WHATSAPP ==========
   if (e.target.matches(".cta")) {
     const tarjeta = e.target.closest(".producto-card");
-    const index = tarjeta.dataset.index;
-    const producto = productosDestacados[index];
+    const indexGlobal = tarjeta.dataset.index;
+    const producto = productosDestacados[indexGlobal];
 
-    // Talla seleccionada
-    const talla = tarjeta.querySelector(".talla-btn.selected")?.dataset.talla || "No seleccionada";
+    // Obtener talla seleccionada
+    const talla =
+      tarjeta.querySelector(".talla-btn.selected")?.dataset.talla ||
+      "No seleccionada";
 
-    // Color seleccionado
-    const color = tarjeta.querySelector(".color-btn.selected")?.dataset.color || "No seleccionado";
+    // Obtener color seleccionado
+    const color =
+      tarjeta.querySelector(".color-btn.selected")?.dataset.color ||
+      "No seleccionado";
 
     enviarWhatsApp(producto, talla, color);
     return;
   }
+
 });
 
-// ======================
-// 5. INICIALIZAR CARRUSELES
-// ======================
+// ============================================
+// 6. INICIALIZAR CARRUSELES
+// ============================================
 document.addEventListener("DOMContentLoaded", () => {
   initCarruseles();
 });

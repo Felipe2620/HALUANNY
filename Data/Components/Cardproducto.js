@@ -1,28 +1,12 @@
 // Data/Components/CardProducto.js
-
 export function generarProductoHTML(prod, index) {
-
-  // Asegurar estructura de colores
-  if (!prod.colores || typeof prod.colores !== "object") {
-    console.error("El producto no tiene 'colores' definido:", prod);
-    return "";
-  }
-
-  // Primer color como inicial
   const colorInicial = Object.keys(prod.colores)[0];
   const imagenes = prod.colores[colorInicial];
 
-  if (!Array.isArray(imagenes)) {
-    console.error(`No hay imágenes para el color ${colorInicial} del producto ${prod.nombre}`);
-    return "";
-  }
-
-  // Dots del carrusel
   const dots = imagenes
     .map((_, i) => `<span class="carousel-dot" data-img="${i}"></span>`)
     .join("");
 
-  // Botones de colores
   const botonesColores = Object.keys(prod.colores)
     .map(
       (color) => `
@@ -32,11 +16,10 @@ export function generarProductoHTML(prod, index) {
           title="${color}"
           style="background:${color};">
         </button>
-      `
+    `
     )
     .join("");
 
-  // HTML final de la tarjeta
   return `
     <article class="producto-card" data-index="${index}">
 
@@ -45,7 +28,7 @@ export function generarProductoHTML(prod, index) {
           ${imagenes
             .map(
               (src, i) =>
-                `<img src="${src}" alt="${prod.nombre} ${i + 1}" loading="lazy" draggable="false">`
+                `<img src="${src}" alt="${prod.nombre} ${i + 1}" loading="lazy">`
             )
             .join("")}
         </div>
@@ -62,13 +45,12 @@ export function generarProductoHTML(prod, index) {
 
       <div class="tallas-container">
         ${prod.tallas
-          .map(
-            (t) => `<button class="talla-btn" data-talla="${t}">${t}</button>`
-          )
+          .map(t => `<button class="talla-btn" data-talla="${t}">${t}</button>`)
           .join("")}
       </div>
 
       <button class="cta">Consultar</button>
+
     </article>
   `;
 }

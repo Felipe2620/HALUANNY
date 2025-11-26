@@ -11,7 +11,9 @@ export function renderSecciones(categorias, productosPorCategoria, contenedor) {
       return `
         <section class="categoria-section">
           <div class="productos-grid">
-            ${productos.map(generarProductoHTML).join("")}
+            ${productos
+              .map(prod => generarProductoHTML(prod, prod.globalIndex))
+              .join("")}
           </div>
         </section>
       `;
