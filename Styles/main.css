@@ -55,7 +55,7 @@ section { padding: 20px 16px; }
 }
 .hero {
   text-align: center;
-  margin: 24px 0px 12px;
+  margin: 24px px 12px;
 }
 
 .hero-header-bg{
@@ -103,7 +103,6 @@ section { padding: 20px 16px; }
 .hero-video {
   width: 100%;
   height: var(--video-height);
-  max-height: 600px;
   overflow: hidden;
   margin: 12px 0;
 }
@@ -118,9 +117,18 @@ section { padding: 20px 16px; }
 
 /* Responsive */
 @media (max-width: 720px) {
-  :root { --video-height: 70vh; }
+  :root { --video-height: 80vh; }
   .subtitle.last { font-size: 1.6rem; }
+
+  .hero-video video {
+  width: 95%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.9) contrast(1.2) saturate(1.1) blur(0.5px);
+  transition: filter 0.5s ease; /* opcional: animación suave */
+ } 
 }
+
 
 /* 05 · Categories row (mobile) */
 .categories { max-width: 1200px; margin: 0 auto 6px; }
