@@ -24,20 +24,10 @@
 }
 
 /* 02 · Base */
-html,body { height: 100%; }
-body{
-  font-family: var(--font-body);
-  background: var(--marfil);
-  color: var(--carbon);
-  line-height: 1.45;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-}
 
 h1,h2,h3 { font-family: var(--font-title); font-weight: 600; margin-bottom: 8px; }
-h1{ font-size: 3rem; }
-h2{ font-size: 2.5rem; }
+h1{ font-size: 3.5rem; }
+h2{ font-size: 2.7rem; }
 h3{ font-size: 1rem; }
 
 
@@ -131,7 +121,7 @@ section { padding: 20px 16px; }
 
 
 /* 05 · Categories row (mobile) */
-.categories { max-width: 1200px; margin: 0 auto 6px; }
+.categories { max-width: auto; margin: 0 auto 6px; }
 .title{text-align: center; margin:0px;}
 .category-row {
   display: flex;
@@ -157,48 +147,64 @@ section { padding: 20px 16px; }
   background: linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,0.05));
   padding: 8px 0; text-align: center;
 }
-.category-overlay span{ color: var(--white); font-weight: 600; }
+.category-overlay span{ color: var(--white); font-weight: 100; font-size: 25px; }
 
 /* 06 · Featured products container */
-.featured-products { max-width: 1200px; margin: 0 auto; text-align: center;font-weight: 900;}
+/* ==========================
+   FEATURED PRODUCTS HEADER
+   ========================== */
+.featured-products { 
+  margin: 0 auto; 
+  text-align: center;
+  font-weight: 900;
+}
 
-/* Seccion (cada categoria) */
-.categoria-section { margin-bottom: 18px; }
 
-/* Grid for product cards (mobile single-column but centers cards) */
+/* ==========================
+   SECCIÓN POR CATEGORÍA
+   ========================== */
+.categoria-section { 
+  margin-bottom: 1px; 
+}
+
+/* GRID BASE (fluido y sin restricciones) */
 .categoria-section .productos-grid {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 18px;
   justify-items: center;
   padding: 0 4px;
 }
 
-/* 07 · Product card (editorial B - images not too big) */
-.producto-card{
-  width: 100%;
-  max-width: 520px;            /* wide cap for larger screens */
-  background: transparent;     /* editorial - no solid bg */
+
+/* ==========================
+   PRODUCT CARD — FIXED FOR GRID
+   ========================== */
+.producto-card {
+  width: 100%;          /* 🔥 CLAVE: no más 520px */
+  max-width: 100%;      /* 🔥 evita romper columnas */
+  background: transparent;
   padding: 0;
-  box-shadow: none;            /* no shadow per your choice */
+  box-shadow: none;
   border-radius: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
 }
 
-/* 08 · Carrusel container (detail-img-container) */
+
+/* ==========================
+   CARRUSEL (imágenes fluidas)
+   ========================== */
 .detail-img-container {
-  width: 85%;                  /* 85% width as requested */
-  max-width: 370px;            /* cap */
-  margin: 0 auto var(--space-m);
+  width: 100%;          /* antes 85% → bloqueaba columnas */
+  max-width: 100% ;      /* antes 370px → lo rompía */
+  margin: 0 0 var(--space-m);
   position: relative;
   overflow: hidden;
-  /* we intentionally keep no border and no radius */
 }
 
-/* Track (flex row of images, scroll-snap) */
-.detail-img-track{
+.detail-img-track {
   display: flex;
   width: 100%;
   overflow-x: auto;
@@ -209,42 +215,49 @@ section { padding: 20px 16px; }
 }
 .detail-img-track::-webkit-scrollbar { display: none; }
 
-/* Each image fills the track width */
-.detail-img-track img{
+.detail-img-track img {
   flex: 0 0 100%;
   width: 100%;
-  height: 100%;
+  height: auto;                    /* AUTOAJUSTABLE REAL */
   display: block;
   object-fit: cover;
+  scroll-snap-align: start;
   user-select: none;
   -webkit-user-drag: none;
-  scroll-snap-align: start;
 }
 
-/* 09 · Indicators (dots) */
-.carousel-indicators{
-  display:flex;
+
+/* ==========================
+   INDICADORES DEL CARRUSEL
+   ========================== */
+.carousel-indicators {
+  display: flex;
   gap: 8px;
   justify-content: center;
   margin: 10px;
   pointer-events: none;
 }
-.carousel-dot{
-  width: 9px; height: 9px; border-radius: 50%;
-  background: rgba(0,0,0,0.16); transition: transform .12s ease, background .12s ease;
+.carousel-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.16);
+  transition: transform .12s ease, background .12s ease;
 }
-.carousel-dot.active{
+.carousel-dot.active {
   background: var(--dorado);
   transform: scale(1.12);
 }
 
-/* Animación premium para cambio de color */
+
+/* ==========================
+   ANIMACIÓN PREMIUM
+   ========================== */
 .cambio-color {
   filter: blur(6px);
   opacity: 0;
   transition: all 0.35s ease;
 }
-
 .cambio-color-activo {
   filter: blur(0);
   opacity: 1;
@@ -252,49 +265,55 @@ section { padding: 20px 16px; }
 }
 
 
-/* 10 · Product meta (name, price) */
-.producto-card h3{
-  font-size: 1.05rem;
+/* ==========================
+   META: NOMBRE + PRECIO
+   ========================== */
+.producto-card h3 {
+  font-size: 2rem;
   font-weight: 600;
   margin-top: 12px;
   text-align: center;
 }
-.precio{
-  font-size: 1.05rem;
+.precio {
+  font-size: 1.5rem;
   font-weight: 700;
   margin-top: 6px;
   color: var(--carbon);
 }
 
-/* 11 · Colores (swatches) */
-.colores-container{
-  display:flex;
+
+/* ==========================
+   COLORES
+   ========================== */
+.colores-container {
+  display: flex;
   gap: 8px;
   align-items: center;
   justify-content: center;
   margin: 10px 0;
   padding: 0 6px;
 }
-.color-btn{
+.color-btn {
   width: 28px;
   height: 28px;
   border-radius: 50%;
   border: 1px solid rgba(0,0,0,.12);
   background: transparent;
   cursor: pointer;
-  display:inline-block;
   transition: transform .12s ease, box-shadow .12s ease;
-  box-shadow: none;
 }
-.color-btn.selected{
+.color-btn.selected {
   transform: scale(1.08);
   border-color: rgba(0,0,0,.22);
   outline: 2px solid rgba(199,168,107,0.14);
 }
 
-/* 12 · Tallas (chips) */
-.tallas-container{
-  display:flex;
+
+/* ==========================
+   TALLAS
+   ========================== */
+.tallas-container {
+  display: flex;
   gap: 8px;
   overflow-x: auto;
   padding: 6px;
@@ -302,31 +321,33 @@ section { padding: 20px 16px; }
   justify-content: center;
   align-items: center;
 }
-.talla-btn{
+.tallas-container::-webkit-scrollbar { display: none; }
+
+.talla-btn {
   padding: 6px 10px;
   border-radius: 8px;
   border: 1px solid rgba(0,0,0,0.12);
   background: var(--white);
   font-weight: 600;
+  font-size: 15px;
   cursor: pointer;
   transition: background .12s ease, transform .12s ease;
 }
-.talla-btn.selected{
+.talla-btn.selected {
   background: var(--carbon);
   color: var(--white);
   border-color: rgba(0,0,0,0.18);
 }
 
-/* hide scrollbar on tracks */
-.tallas-container::-webkit-scrollbar,
-.detail-img-track::-webkit-scrollbar { display: none; }
 
-/* 13 · CTA (minimal boutique) */
-.cta{
+/* ==========================
+   CTA
+   ========================== */
+.cta {
   margin: 12px auto 20px;
   padding: 10px 18px;
   border-radius: 6px;
-  border: 1px solid var(--dorado);
+  border: 2px solid var(--dorado);
   color: var(--dorado);
   background: transparent;
   font-weight: 700;
@@ -335,42 +356,112 @@ section { padding: 20px 16px; }
   display: inline-flex;
   align-items:center;
   justify-content:center;
+  font-size: 19px;
 }
-.cta:hover{
+.cta:hover {
   background: var(--dorado);
   color: var(--white);
   transform: translateY(-2px);
 }
 
+
 /* 14 · Footer */
 footer { text-align: center; padding: 28px 12px; color: var(--muted); }
 
-/* 15 · Responsive: from tablet up */
-@media(min-width: 768px){
+/* =========================================================
+   🔷 BREAKPOINT TABLET – 768px+
+   ========================================================= */
+@media (min-width: 768px) {
 
-  section{ padding: 48px 32px; }
-
-  .category-row { gap: 18px; justify-content: center; flex-wrap: wrap; overflow-x: visible; }
-
-  .categoria-section .productos-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 28px;
+  /* Espaciado general más respirable */
+  section { 
+    padding: 48px clamp(24px, 4vw, 48px); 
   }
 
-  .detail-img-container { max-width: 420px; width: 75%; }
-  .producto-card { max-width: 480px; }
-
-  h1{ font-size: 3.6rem; }
-  h2{ font-size: 2.2rem; }
-}
-
-/* 16 · Desktop wide */
-@media(min-width: 1100px){
-  .categoria-section .productos-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 36px;
+  /* ================================
+     🔹 CATEGORÍAS – Mejor centrado
+     ================================ */
+  .category-row { 
+    gap: 22px; 
+    justify-content: center; 
+    flex-wrap: wrap;
+    padding: 8px 0;
   }
 
-  .detail-img-container { width: 60%; max-width: 560px; }
-  .producto-card{ max-width: 560px; }
+  .category-item {
+    flex: 0 0 220px !important;
+    height: 400px!important;
+    transition: transform .35s ease, filter .35s ease;
+  }
+
+  .category-item:hover {
+    transform: translateY(-4px);
+    filter: brightness(1.05);
+  }
+
+  /* ================================
+     🔹 PRODUCTOS DESTACADOS
+     ================================ */
+  
+  /* Distribución elegante */
+  .categoria-section .productos-grid {
+  display: flex;
+  gap: 18px;
+  justify-items: center;
+  padding: 0 4px;
 }
+
+  /* Imágenes más amplias */
+  .detail-img-container {
+    max-width: 500px;
+  }
+
+  .producto-card {
+    max-width: auto !important;
+    height: auto;
+  }
+
+  .detail-img-track img {
+    width: 100%;
+    max-width: 100%;
+  }
+  /* Titulares refinados */
+  h1 { font-size: clamp(4rem, 4vw, 3.6rem); }
+  h2 { font-size: clamp(4rem, 3vw, 2.3rem); }
+
+}
+
+/* =========================================================
+   🖥 BREAKPOINT DESKTOP – 1100px+
+   ========================================================= */
+@media (min-width: 1100px) {
+
+  /* Categorías ampliadas */
+  .category-item {
+    flex: 0 0 400px!important;
+    height: 600px!important;
+  }
+
+  /* Distribución elegante */
+  .categoria-section .productos-grid {
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+  padding: 0 4px;
+}
+
+  /* Imágenes más amplias */
+  .detail-img-container {
+    max-width: auto;
+  }
+
+  .producto-card {
+    max-width: 500px !important;
+  }
+
+  .detail-img-track img {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
