@@ -32,11 +32,11 @@ export const productosDestacados = [
   // Vestidos
   {
     categoria: "vestidos",
-    nombre: "Vestido Lino Corte A",
-    precio: 249000,
+    nombre: " VESTIDO MARCELA",
+    precio: 73000,
     descripcion: "Diseño en lino 100% con caída natural.",
     tallas: ["S", "M", "L"],
-    material: "Lino",
+    material: "Tipo de tela: Tela Hermes",
     colores: {
       beige: [
         "Assets/IMG/Products/Vestidos/VestidoBeige (2).jpg",
@@ -55,11 +55,11 @@ export const productosDestacados = [
   // Blusas
   {
     categoria: "blusas",
-    nombre: "Blusa Seda Minimal",
-    precio: 199000,
+    nombre: "BLUSA SANDRA",
+    precio: 60000,
     descripcion: "Seda suave en diseño minimalista.",
     tallas: ["S", "M", "L"],
-    material: "Seda natural",
+    material: "Tela Satin",
     colores: {
       lightblue: [
         "Assets/IMG/Products/Blusas/BlusaAzul (2).jpg",
@@ -78,13 +78,13 @@ export const productosDestacados = [
   // Conjuntos
   {
     categoria: "conjuntos",
-    nombre: "Conjunto Danna",
-    precio: 399000,
+    nombre: "SET KAROL",
+    precio: 185000,
     descripcion: "Corte clásico con acabados modernos.",
-    tallas: ["M", "L"],
-    material: "Lino + Algodón",
+    tallas: ["S", "M", "L"],
+    material: "Tela Vengalina",
     colores: {
-      lightblue: [
+      "rgba(98, 119, 150, 1)": [
         "Assets/IMG/Products/Conjuntos/ConjuntoClaro (1).jpg",
         "Assets/IMG/Products/Conjuntos/ConjuntoClaro (2).jpg",
         "Assets/IMG/Products/Conjuntos/ConjuntoClaro (3).jpg"
@@ -101,10 +101,10 @@ export const productosDestacados = [
   {
     categoria: "pantalones",
     nombre: "Pantalón Palazzo",
-    precio: 179000,
+    precio: 85000,
     descripcion: "Cintura alta, amplio y fresco.",
-    tallas: ["S", "M", "L", "XL"],
-    material: "Lino liviano",
+    tallas: ["S", "M", "L"],
+    material: "Tela Hermes",
     colores: {
   white: [
     "Assets/IMG/Products/Pantalones/PantalonBlanco (1).jpg",

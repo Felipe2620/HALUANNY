@@ -1,38 +1,40 @@
+// Data/Components/Carrusel.js
+
 export function initCarruseles() {
   const tracks = document.querySelectorAll(".detail-img-track");
   if (!tracks.length) return;
 
   tracks.forEach(track => {
     const container = track.parentElement;
-
-    // Buscar tarjeta contenedora
     const card = track.closest(".producto-card");
     if (!card) return;
 
-    const dots = [...card.querySelectorAll(".carousel-dot")];
-    const imgs = [...track.querySelectorAll("img")];
+    // --- Función para obtener referencias dinámicas ---
+    const updateRefs = () => ({
+      imgs: [...track.querySelectorAll("img")],
+      dots: [...card.querySelectorAll(".carousel-dot")]
+    });
 
-    if (!dots.length || !imgs.length) return;
-
-    /* 🔥 1) FORZAR SIEMPRE INICIO EN LA PRIMERA IMAGEN */
+    // --- FORZAR INICIO ---
     container.scrollLeft = 0;
-    dots.forEach(d => d.classList.remove("active"));
-    dots[0].classList.add("active");
 
+    // --- Actualizar dot activo según imagen visible ---
     function updateDot() {
+      const { imgs, dots } = updateRefs();
+      if (!imgs.length || !dots.length) return;
+
       const cRect = container.getBoundingClientRect();
       const centerX = cRect.left + cRect.width / 2;
 
       let closest = 0;
-      let min = Infinity;
+      let minDist = Infinity;
 
       imgs.forEach((img, i) => {
         const r = img.getBoundingClientRect();
         const imgCenter = r.left + r.width / 2;
         const dist = Math.abs(imgCenter - centerX);
-
-        if (dist < min) {
-          min = dist;
+        if (dist < minDist) {
+          minDist = dist;
           closest = i;
         }
       });
@@ -40,32 +42,71 @@ export function initCarruseles() {
       dots.forEach((d, i) => d.classList.toggle("active", i === closest));
     }
 
-    /* 🔥 2) ACTUALIZAR DOTS EN SCROLL */
-    let ticking = false;
+    // --- Esperar a que termine el scroll (función híbrida) ---
+    function waitScrollEnd(callback, delay = 50) {
+      let lastScroll = container.scrollLeft;
+      const check = () => {
+        const current = container.scrollLeft;
+        if (Math.abs(current - lastScroll) < 1) {
+          callback();
+        } else {
+          lastScroll = current;
+          requestAnimationFrame(check);
+        }
+      };
+      requestAnimationFrame(check);
+    }
+
+    // --- Scroll listener ---
     container.addEventListener("scroll", () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          updateDot();
-          ticking = false;
-        });
-        ticking = true;
-      }
+      waitScrollEnd(updateDot);
     });
 
-    // Recalibrar cuando cargan las imágenes
+    // --- Touchend para móviles ---
+    container.addEventListener("touchend", () => {
+      waitScrollEnd(updateDot);
+    });
+
+    // --- Click en dots ---
+    const { dots } = updateRefs();
+    dots.forEach((dot, i) => {
+      dot.onclick = () => {
+        const { imgs } = updateRefs();
+        container.scrollLeft = i * imgs[0].clientWidth;
+        updateDot();
+      };
+    });
+
+    // --- IntersectionObserver para detectar imagen activa ---
+    const { imgs } = updateRefs();
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const index = imgs.indexOf(entry.target);
+          const { dots } = updateRefs();
+          dots.forEach((d, i) => d.classList.toggle("active", i === index));
+        }
+      });
+    }, {
+      root: container,
+      threshold: 0.5 // al menos 50% visible
+    });
+
+    imgs.forEach(img => observer.observe(img));
+
+    // --- Recalibrar al iniciar ---
     imgs.forEach(img => {
       if (!img.complete) {
         img.addEventListener("load", updateDot, { once: true });
       }
     });
 
-    // Recalibrar al iniciar
     setTimeout(() => {
       container.scrollLeft = 0;
       updateDot();
     }, 50);
 
-    /* 🔥 3) MOUSE DRAG PARA PC */
+    // --- MOUSE DRAG para PC ---
     let isDown = false;
     let startX, scrollLeftStart;
 
@@ -89,9 +130,8 @@ export function initCarruseles() {
     container.addEventListener("mousemove", e => {
       if (!isDown) return;
       e.preventDefault();
-      const x = e.pageX - container.offsetLeft;
-      const walk = (x - startX) * 1.3; // Velocidad del drag
-      container.scrollLeft = scrollLeftStart - walk;
+      const x = e.pageX - startX;
+      container.scrollLeft = scrollLeftStart - x * 1.3;
     });
   });
 }

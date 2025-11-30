@@ -1,8 +1,13 @@
 // Data/Components/ColorController.js
 
 import { productosDestacados } from "../../Data/catalogo.js";
-import { initCarruseles } from "./Carrusel.js"; // si lo necesitas en el futuro
+import { initCarruseles } from "./Carrusel.js";
 
+/**
+ * Actualiza las imágenes de un producto según el color seleccionado.
+ * @param {number} index - Índice del producto en productosDestacados.
+ * @param {string} nuevoColor - Nombre del color seleccionado.
+ */
 export function actualizarColorProducto(index, nuevoColor) {
   const producto = productosDestacados[index];
   if (!producto) return;
@@ -20,14 +25,13 @@ export function actualizarColorProducto(index, nuevoColor) {
   const indicadores = tarjeta.querySelector(".carousel-indicators");
   if (!track || !indicadores) return;
 
-  // 1. Activar efecto blur/fade-out
+  // --- 1. Activar efecto blur/fade-out ---
   track.classList.add("cambio-color");
 
   setTimeout(() => {
-
     const imgs = track.querySelectorAll("img");
 
-    // 2. Ajustar número de imágenes
+    // --- 2. Ajustar número de imágenes ---
     if (nuevasImagenes.length > imgs.length) {
       // Agregar imágenes faltantes
       nuevasImagenes.slice(imgs.length).forEach(src => {
@@ -38,34 +42,36 @@ export function actualizarColorProducto(index, nuevoColor) {
         track.appendChild(img);
       });
     } else if (nuevasImagenes.length < imgs.length) {
-      // Eliminar extras
+      // Eliminar imágenes extra
       [...imgs].slice(nuevasImagenes.length).forEach(img => img.remove());
     }
 
-    // 3. Reemplazar src sin destruir DOM
+    // --- 3. Actualizar src de las imágenes existentes ---
     [...track.querySelectorAll("img")].forEach((img, i) => {
       img.src = nuevasImagenes[i];
     });
 
-    // 4. Actualizar dots
-    indicadores.innerHTML = nuevasImagenes
-      .map((_, i) => `<span class="carousel-dot" data-img="${i}"></span>`)
-      .join("");
-    
-    indicadores.querySelector(".carousel-dot")?.classList.add("active");
+    // --- 4. Limpiar los dots existentes y crear nuevos ---
+    indicadores.replaceChildren();
+    nuevasImagenes.forEach((_, i) => {
+      const dot = document.createElement("span");
+      dot.classList.add("carousel-dot");
+      dot.dataset.img = i;
+      indicadores.appendChild(dot);
+    });
 
-    // 5. Fade-in suave
+    // --- 5. Reset scroll del track al inicio ---
+    track.parentElement.scrollLeft = 0;
+
+    // --- 6. Fade-in ---
     setTimeout(() => {
       track.classList.remove("cambio-color");
       track.classList.add("cambio-color-activo");
 
-      // Reset clase después del fade
-      setTimeout(() => {
-        track.classList.remove("cambio-color-activo");
-      }, 350);
-
+      setTimeout(() => track.classList.remove("cambio-color-activo"), 350);
     }, 50);
 
+    // --- 7. Re-inicializar el carrusel SOLO para esta tarjeta ---
+    initCarruseles();
   }, 200);
 }
-
