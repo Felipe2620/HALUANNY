@@ -29,8 +29,8 @@ window.addEventListener('DOMContentLoaded', () => {
         const ancho = window.innerWidth;
         let srcVideo = "";
 
-        if (ancho >= 1024) srcVideo = `${basePath}/BANNER.mp4`;
-        else if (ancho >= 768) srcVideo = `${basePath}/BANNER.mp4`;
+        if (ancho >= 1024) srcVideo = `${basePath}/BANNER1.mp4`;
+        else if (ancho >= 768) srcVideo = `${basePath}/BANNER1.mp4`;
         else srcVideo = `${basePath}/BANNER2.mp4`;
 
         if (bannerSource.getAttribute('src') !== srcVideo) {
