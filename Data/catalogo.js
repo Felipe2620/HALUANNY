@@ -5,22 +5,22 @@ export const categorias = [
   {
     id: "vestidos",
     nombre: "Vestidos",
-    img: "./Assets/IMG/Categories/VestidoCategories.jpg",
+    img: "./Assets/IMG/Categories/VestidoCategories.webp",
   },
   {
     id: "blusas",
     nombre: "Blusas",
-    img: "./Assets/IMG/Categories/BlusaCategories.jpg",
+    img: "./Assets/IMG/Categories/BlusaCategories.webp",
   },
   {
     id: "pantalones",
     nombre: "Pantalón",
-    img: "./Assets/IMG/Categories/PantalonCategories.jpg",
+    img: "./Assets/IMG/Categories/PantalonCategories.webp",
   },
   {
     id: "conjuntos",
     nombre: "Conjuntos",
-    img: "./Assets/IMG/Categories/ConjuntoCategories.jpg",
+    img: "./Assets/IMG/Categories/ConjuntoCategories.webp",
   },
 ];
 
