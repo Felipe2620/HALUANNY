@@ -1,49 +1,52 @@
 import { categorias, productosDestacados } from "../Data/catalogo.js";
 import { generarCategorias } from "../Data/Components/Categoria.js";
 
-// ============================================
-// ASIGNAR ÍNDICE GLOBAL A CADA PRODUCTO
-// ============================================
-productosDestacados.forEach((p, i) => {
-  p.globalIndex = i;
-});
 
-// ============================================
-// RENDER BANNER
-// ============================================
+// === SOLO UN DOMContentLoaded ===
 window.addEventListener("DOMContentLoaded", () => {
+
+
+  // Inserta el navbar EN EL MOMENTO CORRECTO
+  import("../Data/Components/Navbar.js").then(({ crearNavbar }) => {
+  crearNavbar("#app-navbar"); // <- aquí colocas el ID donde quieres que aparezca
+  });
+
+  // ASIGNAR ÍNDICE GLOBAL
+  productosDestacados.forEach((p, i) => {
+    p.globalIndex = i;
+  });
+
+  // RENDER BANNER
   const bannerVideo = document.getElementById("bannerVideo");
   const bannerSource = document.getElementById("bannerSource");
-  if (!bannerVideo || !bannerSource) return;
 
-  const basePath = "Assets/IMG/Banner";
+  if (bannerVideo && bannerSource) {
+    const basePath = "Assets/IMG/Banner";
 
-  function seleccionarVideo() {
-    const ancho = window.innerWidth;
-    let srcVideo = "";
+    function seleccionarVideo() {
+      const ancho = window.innerWidth;
+      let srcVideo = "";
 
-    if (ancho >= 1024) srcVideo = `${basePath}/BANNER1.mp4`;
-    else if (ancho >= 768) srcVideo = `${basePath}/BANNER1.mp4`;
-    else srcVideo = `${basePath}/BANNER2.mp4`;
+      if (ancho >= 1024) srcVideo = `${basePath}/BANNER1.mp4`;
+      else if (ancho >= 768) srcVideo = `${basePath}/BANNER1.mp4`;
+      else srcVideo = `${basePath}/BANNER2.mp4`;
 
-    if (bannerSource.getAttribute("src") !== srcVideo) {
-      bannerSource.setAttribute("src", srcVideo);
-      bannerVideo.load();
-      bannerVideo.play().catch(() => {});
+      if (bannerSource.getAttribute("src") !== srcVideo) {
+        bannerSource.setAttribute("src", srcVideo);
+        bannerVideo.load();
+        bannerVideo.play().catch(() => {});
+      }
     }
+
+    seleccionarVideo();
+    window.addEventListener("resize", seleccionarVideo);
   }
 
-  seleccionarVideo();
-  window.addEventListener("resize", seleccionarVideo);
+  // RENDER CATEGORÍAS
+  document.querySelector("#categoria-list").innerHTML =
+    generarCategorias(categorias);
 
-  // ============================================
-  // RENDER CATEGORÍAS (visible al inicio)
-  // ============================================
-  document.querySelector("#categoria-list").innerHTML = generarCategorias(categorias);
-
-  // ============================================
-  // POSTERGAR COMPONENTES SECUNDARIOS
-  // ============================================
+  // COMPONENTES SECUNDARIOS
   import("../Data/Components/Cardproducto.js").then(({ generarProductoHTML }) => {
     import("../Data/Render/Secciones.js").then(({ renderSecciones }) => {
       const productosPorCategoria = productosDestacados.reduce((acc, prod) => {
@@ -63,39 +66,45 @@ window.addEventListener("DOMContentLoaded", () => {
     initCarruseles();
   });
 
-  // Scroll a secciones de productos
+  // Scroll a secciones
   document.addEventListener("click", (e) => {
     const item = e.target.closest(".category-item");
     if (!item) return;
     const target = item.dataset.target;
     const section = document.querySelector(target);
-    if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (section) section.scrollIntoView({ behavior: "smooth" });
   });
 
-  // Eventos de selección de talla
+  // Selección de tallas
   document.addEventListener("click", (e) => {
     if (!e.target.matches(".talla-btn")) return;
     const contenedor = e.target.closest(".tallas-container");
-    contenedor.querySelectorAll(".talla-btn").forEach(btn => btn.classList.remove("selected"));
+    contenedor.querySelectorAll(".talla-btn").forEach(btn =>
+      btn.classList.remove("selected")
+    );
     e.target.classList.add("selected");
   });
 
+  // WhatsApp
   import("../Data/Services/WhatsAppService.js").then(({ enviarWhatsApp }) => {
-    // Eventos de WhatsApp quedan aquí
     document.addEventListener("click", (e) => {
       if (!e.target.matches(".cta")) return;
       const tarjeta = e.target.closest(".producto-card");
       const indexGlobal = tarjeta.dataset.index;
       const producto = productosDestacados[indexGlobal];
-      const talla = tarjeta.querySelector(".talla-btn.selected")?.dataset.talla || "No seleccionada";
-      const color = tarjeta.querySelector(".color-btn.selected")?.dataset.color || "No seleccionado";
+      const talla =
+        tarjeta.querySelector(".talla-btn.selected")?.dataset.talla ||
+        "No seleccionada";
+      const color =
+        tarjeta.querySelector(".color-btn.selected")?.dataset.color ||
+        "No seleccionado";
+
       enviarWhatsApp(producto, talla, color);
     });
   });
-  
+
+  // FOOTER
   import("../Data/Components/Footer.js").then(({ Footer }) => {
     document.querySelector("#app-footer").innerHTML = Footer();
   });
-
 });
-

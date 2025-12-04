@@ -23,7 +23,7 @@ export function Footer() {
       </div>
 
       <!-- 3. Políticas de cambios -->
-      <div class="footer-section footer-cambios">
+      <div id="politicas-cambios" class="footer-section footer-cambios" >
         <h3>Políticas de cambios</h3>
         <ul>
           <li>Realizamos cambios únicamente por talla</li>
@@ -39,7 +39,7 @@ export function Footer() {
       <div class="footer-info-container">
         
         <!-- Métodos de pago -->
-        <div class="footer-section footer-pagos">
+        <div id="metodos-pago" class="footer-section footer-pagos">
           <h3>Métodos de pago</h3>
           <div class="payment-methods">
             <img src="Assets/Icons/Bancolombia.svg" alt="Bancolombia">
@@ -49,7 +49,7 @@ export function Footer() {
         </div>
 
         <!-- Contáctanos -->
-        <div class="footer-section footer-contacto">
+        <div id="contacto" class="footer-section footer-contacto">
          <h3>Contáctanos</h3>
 
          <div class="contact-item">

@@ -32,7 +32,8 @@
     />
 
     <!-- JS PRINCIPAL (DEFER) -->
-    <script type="module" src="Scripts/main.js" defer></script>
+    <link rel="modulepreload" href="Scripts/main.js" />
+    <script type="module" src="Scripts/main.js"></script>
   </head>
 
   <body>
@@ -41,8 +42,7 @@
         <div class="hero-header-bg">
           <h1 class="logo">HALUANNY</h1>
           <p class="hero-description">ELEGANCIA EN CADA DETALLE</p>
-
-          <!-- LCP OPTIMIZADO -->
+          
           <img
             class="hero-logo"
             src="Assets/IMG/Banner/LogoHaluanny.png"
@@ -53,11 +53,12 @@
           />
         </div>
 
+        <div id="app-navbar"></div>
+        
         <h2 class="subtitle first">Nueva Colección</h2>
         <h2 class="subtitle last">SIN MIEDO</h2>
       </div>
 
-      <!-- VIDEO OPTIMIZADO (NO bloquea render) -->
       <div class="hero-video" style="width:100%; aspect-ratio:16/9; overflow:hidden;">
         <video
           id="bannerVideo"

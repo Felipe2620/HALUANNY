@@ -89,6 +89,45 @@ section {
   filter: brightness(0) invert(1) drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.5));
 }
 
+.hero-navbar {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 50px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.hero-navbar a {
+  color: #2d2d2d;
+  text-decoration: none;
+  padding-bottom: 3px;
+  position: relative;
+}
+
+.hero-navbar a:hover {
+  color: #000;
+}
+
+.hero-navbar a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background: #000;
+  transition: width 0.3s ease;
+}
+
+.hero-navbar a:hover::after {
+  width: 100%;
+}
+
+
 /* Subtitles */
 .subtitle {
   display: block;
